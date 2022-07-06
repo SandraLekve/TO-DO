@@ -1,10 +1,5 @@
 import { nanoid } from 'nanoid';
-import React, {
-  ChangeEvent,
-  ChangeEventHandler,
-  KeyboardEvent,
-  useState,
-} from 'react';
+import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
 import { getAllJSDocTagsOfKind } from 'typescript';
 
 type Props = {};
@@ -32,7 +27,7 @@ const Liste: React.FC<Props> = () => {
     }
   };
 
-  const handelCompleteChange =
+  const handleTaskCompleteChange =
     (handledTask: Task) => (e: ChangeEvent<HTMLInputElement>) => {
       setTasks((tasks) =>
         tasks.map((task) => {
@@ -47,6 +42,10 @@ const Liste: React.FC<Props> = () => {
     setTasks((tasks) => tasks.filter((task) => !task.isComplete));
   };
 
+  const handleTaskDeleteClick = (handledTask: Task) => () => {
+    setTasks((tasks) => tasks.filter((task) => task.id !== handledTask.id));
+  };
+
   return (
     <div>
       <div>
@@ -55,9 +54,10 @@ const Liste: React.FC<Props> = () => {
             <input
               type="checkbox"
               checked={task.isComplete}
-              onChange={handelCompleteChange(task)}
+              onChange={handleTaskCompleteChange(task)}
             />
             {task.label}
+            <button onClick={handleTaskDeleteClick(task)}>delete</button>
           </div>
         ))}
       </div>
