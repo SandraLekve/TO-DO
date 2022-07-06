@@ -1,9 +1,12 @@
 import React from 'react';
+import { TasksProps } from '../types';
 
-const Focus = () => {
-    return(
-    <h1>Hello Focus</h1>
-    );
-}
+type Props = TasksProps & {};
+
+const Focus: React.FC<Props> = ({ tasks }) => {
+  const task = tasks[0];
+
+  return task ? <div>{task.label}</div> : <div>No tasks. </div>;
+};
 
 export default Focus;
