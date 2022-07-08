@@ -8,7 +8,17 @@ import { Task } from './types';
 function App() {
   let activeClassName = 'underline';
   const [tasks, setTasks] = useState<Task[]>([]);
-  const tasksProps = { tasks, setTasks };
+
+  const updateTaskcompletion = (taskId: string, isComplete: boolean) => {
+    setTasks((tasks) =>
+      tasks.map((task) => {
+        if (task.id === taskId) return { ...task, isComplete };
+        return task;
+      })
+    );
+  };
+
+  const tasksApi = { tasks, setTasks, updateTaskcompletion };
 
   return (
     <BrowserRouter>
@@ -19,7 +29,7 @@ function App() {
         >
           List
         </NavLink>
-        -{' '}
+        -{'  '}
         <NavLink
           to="/focus"
           className={({ isActive }) => (isActive ? activeClassName : undefined)}
@@ -29,8 +39,8 @@ function App() {
       </nav>
       <br />
       <Routes>
-        <Route path="/" element={<Liste {...tasksProps} />} />
-        <Route path="/focus" element={<Focus {...tasksProps} />} />
+        <Route path="/" element={<Liste {...tasksApi} />} />
+        <Route path="/focus" element={<Focus {...tasksApi} />} />
       </Routes>
     </BrowserRouter>
   );

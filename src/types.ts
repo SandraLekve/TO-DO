@@ -7,4 +7,5 @@ export type Task = {
 export type TasksProps = {
   tasks: Task[];
   setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
+  updateTaskcompletion: (taskId: string, isComplete: boolean) => void ; 
 };
