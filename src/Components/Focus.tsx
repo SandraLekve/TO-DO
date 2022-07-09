@@ -6,7 +6,7 @@ type Props = TasksProps & {};
 const Focus: React.FC<Props> = ({
   focusedTask: task,
   suffeleFocusedTask,
-  updateTaskcompletion
+  updateTaskcompletion,
 }) => {
   const handleMarkCompleted = () => {
     if (task) updateTaskcompletion(task.id, true);
