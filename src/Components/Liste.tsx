@@ -1,11 +1,14 @@
-import { nanoid } from 'nanoid';
 import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
-import { getAllJSDocTagsOfKind } from 'typescript';
 import { Task, TasksProps } from '../types';
 
 type Props = TasksProps & {};
 
-const Liste: React.FC<Props> = ({ tasks, setTasks, updateTaskcompletion }) => {
+const Liste: React.FC<Props> = ({
+  addTask,
+  tasks,
+  setTasks,
+  updateTaskcompletion,
+}) => {
   const [newTaskLabel, setNewTaskLabel] = useState('');
 
   const handleNewTasklabelChange = (e: ChangeEvent<HTMLInputElement>) =>
@@ -13,17 +16,14 @@ const Liste: React.FC<Props> = ({ tasks, setTasks, updateTaskcompletion }) => {
 
   const handlenewTaskKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && newTaskLabel !== '') {
-      setTasks((tasks) => [
-        ...tasks,
-        { id: nanoid(), label: newTaskLabel, isComplete: false },
-      ]);
+      addTask({ label: newTaskLabel });
       setNewTaskLabel('');
     }
   };
 
   const handleTaskCompleteChange =
     (handledTask: Task) => (e: ChangeEvent<HTMLInputElement>) => {
-      updateTaskcompletion(handledTask.id, e.target.checked )
+      updateTaskcompletion(handledTask.id, e.target.checked);
     };
 
   const handleClearClick = () => {

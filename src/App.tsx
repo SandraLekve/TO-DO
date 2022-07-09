@@ -4,10 +4,24 @@ import Liste from './Components/Liste';
 import Focus from './Components/Focus';
 import './Style/App.css';
 import { Task } from './types';
+import { shuffle } from 'lodash';
+import { nanoid } from 'nanoid';
 
 function App() {
   let activeClassName = 'underline';
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [focusedTaskId, setFocusedTaskId] = useState<string | undefined>(
+    undefined
+  );
+
+  const addTask = (task: Pick<Task, 'label'>) => {
+    const id =nanoid();
+    setTasks((tasks) => [
+      ...tasks,
+      { id, label: task.label, isComplete: false },
+    ]);
+    if (!focusedTaskId) setFocusedTaskId(id);
+  };
 
   const updateTaskcompletion = (taskId: string, isComplete: boolean) => {
     setTasks((tasks) =>
@@ -18,7 +32,20 @@ function App() {
     );
   };
 
-  const tasksApi = { tasks, setTasks, updateTaskcompletion };
+  const focusedTask = tasks.find((task) => task.id === focusedTaskId);
+
+  const suffeleFocusedTask = () => {
+    setFocusedTaskId(shuffle(tasks.filter((task) => !task.isComplete))[0]?.id);
+  };
+
+  const tasksApi = {
+    addTask,
+    focusedTask,
+    tasks,
+    setTasks,
+    suffeleFocusedTask,
+    updateTaskcompletion,
+  };
 
   return (
     <BrowserRouter>
