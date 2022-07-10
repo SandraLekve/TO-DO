@@ -9,7 +9,7 @@ import { Task } from './types';
 
 function App() {
   let activeClassName = 'underline';
-  const [tasks, setTasks] = useLocalStorage<Task[]>('taks', []);
+  const [tasks, setTasks] = useLocalStorage<Task[]>('tasks', []);
 
   return (
     <BrowserRouter>

@@ -1,6 +1,6 @@
 import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
 import useTaskStore from '../hooks/use-task-store';
-import { Task } from '../types';
+import { Task, TasksProps } from '../types';
 
 type Props = {};
 
