@@ -6,16 +6,17 @@ import './Style/App.css';
 import { Task } from './types';
 import { shuffle } from 'lodash';
 import { nanoid } from 'nanoid';
+import useLocalStorgae from './hooks/use-local-storage';
 
 function App() {
   let activeClassName = 'underline';
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useLocalStorgae<Task[]>('taks', []);
   const [focusedTaskId, setFocusedTaskId] = useState<string | undefined>(
     undefined
   );
 
   const addTask = (task: Pick<Task, 'label'>) => {
-    const id =nanoid();
+    const id = nanoid();
     setTasks((tasks) => [
       ...tasks,
       { id, label: task.label, isComplete: false },
