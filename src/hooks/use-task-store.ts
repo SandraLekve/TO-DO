@@ -5,49 +5,50 @@ import TaskContext from '../contexts/task-store';
 import { Task } from '../types';
 
 const useTaskStore = () => {
-    const [tasks, setTasks] = useContext(TaskContext);
+  const [tasks, setTasks] = useContext(TaskContext);
 
-    const [focusedTaskId, setFocusedTaskId] = useState<string | undefined>(
-        () => tasks.filter((task) => !task.isComplete)[0]?.id
+  const [focusedTaskId, setFocusedTaskId] = useState<string | undefined>(
+    () => tasks.filter((task) => !task.isComplete)[0]?.id
+  );
+
+  const addTask = (task: Pick<Task, 'label'>) => {
+    const id = nanoid();
+    setTasks((tasks) => [
+      ...tasks,
+      { id, label: task.label, isComplete: false },
+    ]);
+    if (!focusedTaskId) setFocusedTaskId(id);
+  };
+
+  const updateTaskcompletion = (taskId: string, isComplete: boolean) => {
+    setTasks((tasks) =>
+      tasks.map((task) => {
+        if (task.id === taskId) return { ...task, isComplete };
+        return task;
+      })
     );
+  };
 
-    const addTask = (task: Pick<Task, 'label'>) => {
-        const id = nanoid();
-        setTasks((tasks) => [
-            ...tasks,
-            { id, label: task.label, isComplete: false },
-        ]);
-        if (!focusedTaskId) setFocusedTaskId(id);
-    };
+  const focusedTask = tasks.find((task) => task.id === focusedTaskId);
 
-    const updateTaskcompletion = (taskId: string, isComplete: boolean) => {
-        setTasks((tasks) =>
-            tasks.map((task) => {
-                if (task.id === taskId) return { ...task, isComplete };
-                return task;
-            })
-        );
-    };
+  useEffect(() => {
+    if (focusedTask?.isComplete)
+      setFocusedTaskId(() => tasks.filter((task) => !task.isComplete)[0]?.id);
+  }, [tasks, focusedTask]);
 
-    const focusedTask = tasks.find((task) => task.id === focusedTaskId);
+  const suffeleFocusedTask = () => {
+    setFocusedTaskId(shuffle(tasks.filter((task) => !task.isComplete))[0]?.id);
+  };
 
-    useEffect(() => {
-        if ( focusedTask?.isComplete) setFocusedTaskId(() => tasks.filter((task) => !task.isComplete)[0]?.id);
-    }, [tasks, focusedTask])
-
-    const suffeleFocusedTask = () => {
-        setFocusedTaskId(shuffle(tasks.filter((task) => !task.isComplete))[0]?.id);
-    };
-
-    const api = {
-        addTask,
-        focusedTask,
-        tasks,
-        setTasks,
-        suffeleFocusedTask,
-        updateTaskcompletion,
-    };
-     return api;
+  const api = {
+    addTask,
+    focusedTask,
+    tasks,
+    setTasks,
+    suffeleFocusedTask,
+    updateTaskcompletion,
+  };
+  return api;
 };
 
 export default useTaskStore;

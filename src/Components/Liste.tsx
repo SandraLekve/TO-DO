@@ -1,6 +1,47 @@
 import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
+import styled from 'styled-components';
 import useTaskStore from '../hooks/use-task-store';
-import { Task, TasksProps } from '../types';
+import DeleteIcon from '../icons/DeleteIcon';
+import { TextButton } from '../Style/styles';
+import { Task } from '../types';
+import IconButton from './IconButton';
+import Space from './Space';
+
+const Container = styled.div`
+  align-self: stretch;
+  display: flex;
+  flex: 0 1 460px;
+  flex-direction: column;
+  align-items: stretch;
+`;
+
+const List = styled.div`
+  background-color: #7d7c7c;
+  border-radius: 15px;
+  padding: 45px 24px;
+`;
+
+const ListItem = styled.label`
+  align-items: center;
+  display: flex;
+  font-size: 18px;
+  padding: 4px 0;
+`;
+
+const DeleteButton = styled(IconButton)`
+  visibility: hidden;
+  ${ListItem}:hover & {
+    visibility: visible;
+  }
+`;
+
+const Input = styled.input`
+  background-color: #6a6969;
+  border: none;
+  color: white;
+  border-radius: 15px;
+  padding: 20px 24px;
+`;
 
 type Props = {};
 
@@ -32,29 +73,36 @@ const Liste: React.FC<Props> = () => {
   };
 
   return (
-    <div>
-      <div>
+    <Container>
+      <List>
         {tasks.map((task) => (
           <div key={task.id}>
-            <input
-              type="checkbox"
-              checked={task.isComplete}
-              onChange={handleTaskCompleteChange(task)}
-            />
-            {task.label}
-            <button onClick={handleTaskDeleteClick(task)}>delete</button>
+            <ListItem>
+              <input
+                type="checkbox"
+                checked={task.isComplete}
+                onChange={handleTaskCompleteChange(task)}
+              />
+              <Space width={24} />
+              {task.label}
+              <Space flex={1} />
+              <DeleteButton onClick={handleTaskDeleteClick(task)}>
+                <DeleteIcon />
+              </DeleteButton>
+            </ListItem>
           </div>
         ))}
-      </div>
-      <input
+      </List>
+      <Space height={30} />
+      <Input
+      placeholder='Add a task'
         value={newTaskLabel}
         onChange={handleNewTasklabelChange}
         onKeyPress={handlenewTaskKeyPress}
       />
-      <div>
-        <button onClick={handleClearClick}>Clear Completed</button>
-      </div>
-    </div>
+      <Space height={45} />
+      <TextButton onClick={handleClearClick}>Clear Completed</TextButton>
+    </Container>
   );
 };
 
