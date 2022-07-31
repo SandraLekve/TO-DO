@@ -4,9 +4,9 @@ import useTaskStore from '../hooks/use-task-store';
 import DeleteIcon from '../icons/DeleteIcon';
 import { TextButton } from '../Style/styles';
 import { Task } from '../types';
-import Checkbox from './Checkbox';
-import IconButton from './IconButton';
-import Space from './Space';
+import Checkbox from '../Components/Checkbox';
+import IconButton from '../Components/IconButton';
+import Space from '../Components/Space';
 
 const Container = styled.div`
   align-self: stretch;

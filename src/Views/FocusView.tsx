@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import useTaskStore from '../hooks/use-task-store';
-import Button from './Button';
-import Space from './Space';
+import Button from '../Components/Button';
+import Space from '../Components/Space';
 
 
 type Props = {};

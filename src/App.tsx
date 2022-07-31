@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
-import Focus from './Components/Focus';
-import Liste from './Components/Liste';
+import Focus from './Views/FocusView';
+import Liste from './Views/ListeView';
 import TaskContext from './contexts/task-store';
 import useLocalStorage from './hooks/use-local-storage';
 import './Style/App.css';
