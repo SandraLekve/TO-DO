@@ -4,6 +4,7 @@ import useTaskStore from '../hooks/use-task-store';
 import DeleteIcon from '../icons/DeleteIcon';
 import { TextButton } from '../Style/styles';
 import { Task } from '../types';
+import Checkbox from './Checkbox';
 import IconButton from './IconButton';
 import Space from './Space';
 
@@ -78,7 +79,7 @@ const Liste: React.FC<Props> = () => {
         {tasks.map((task) => (
           <div key={task.id}>
             <ListItem>
-              <input
+              <Checkbox
                 type="checkbox"
                 checked={task.isComplete}
                 onChange={handleTaskCompleteChange(task)}
