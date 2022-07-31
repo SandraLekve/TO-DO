@@ -18,4 +18,8 @@ export const TextButton = styled.button`
   color: whitesmoke;
   border: none;
   align-self: center;
+
+  &:hover{
+    cursor: pointer;
+  }
 `;

@@ -42,10 +42,13 @@ const TabButton = styled(NavLink)`
     border-top-right-radius: 15px;
   }
 
-  &:underlines {
-    background: #93bcd7;
+  &.underlines {
+    background: #6a6969;
     color: #fff;
-    font-weight: bold;
+  }
+
+  &:hover{
+    cursor: pointer;
   }
 `;
 
@@ -59,18 +62,14 @@ function App() {
       <TaskContext.Provider value={[tasks, setTasks]}>
         <Layout>
           <Nav>
-            <TabButton
-              to="/"
-              className={({ isActive }) =>
-                isActive ? activeClassName : undefined
-              }
-            >
+            <TabButton to="/" className={({ isActive }) =>
+                isActive ? 'underlines' : undefined}>
               List
             </TabButton>
             <TabButton
               to="/focus"
               className={({ isActive }) =>
-                isActive ? activeClassName : undefined
+                isActive ? 'underlines' : undefined
               }
             >
               Focus

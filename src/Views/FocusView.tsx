@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import useTaskStore from '../hooks/use-task-store';
 import Button from '../Components/Button';
 import Space from '../Components/Space';
+import { TextButton } from '../Style/styles';
 
 
 type Props = {};
@@ -38,7 +39,7 @@ const Focus: React.FC<Props> = () => {
       <Task>{task.label}</Task>
       <Button onClick={handleMarkCompleted}>Mark Completed</Button>
       <Space height={45} />
-      <button onClick={suffeleFocusedTask}>Nope</button>
+      <TextButton onClick={suffeleFocusedTask}>Nope</TextButton>
     </Container>
   ) : (
     <div>No incomplete tasks.Yay! </div>

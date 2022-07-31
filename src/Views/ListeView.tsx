@@ -27,12 +27,19 @@ const ListItem = styled.label`
   display: flex;
   font-size: 18px;
   padding: 4px 0;
+
+  &:hover{
+    cursor: pointer;
+  }
 `;
 
 const DeleteButton = styled(IconButton)`
   visibility: hidden;
   ${ListItem}:hover & {
     visibility: visible;
+  }
+  &:hover{
+    cursor: pointer;
   }
 `;
 
